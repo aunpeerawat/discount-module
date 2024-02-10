@@ -17,7 +17,7 @@ export default function App() {
     //   return{...prev,Clothing:prev.Clothing + (props.itemCategory==="Clothing" ? itemPrice : 0), Accessories:prev.Accessories + (props.itemCategory==="Accessories"? itemPrice : 0), Electronics:prev.Electronics+(props.itemCategory==="Electornics"? itemPrice : 0)};
     // });
     (props.itemCategory==="Clothing")&&(setTotal(prev=> {return {...prev,Clothing:prev.Clothing+itemPrice,All:prev.All+itemPrice}}));
-    (props.itemCategory==="Accesories")&&(setTotal(prev=> {return {...prev,Accessories:prev.Accessories+itemPrice,All:prev.All+itemPrice}}));
+    (props.itemCategory==="Accessories")&&(setTotal(prev=> {return {...prev,Accessories:prev.Accessories+itemPrice,All:prev.All+itemPrice}}));
     (props.itemCategory==="Electronics")&&(setTotal(prev=> {return {...prev,Electronics:prev.Electronics+itemPrice,All:prev.All+itemPrice}}));
     setCartItems(prev=>{return [...prev,props]});
   }
@@ -27,7 +27,7 @@ export default function App() {
     //   return{...prev,Clothing:prev.Clothing - (props.itemCategory==="Clothing" ? itemPrice : 0), Accessories:prev.Accessories - (props.itemCategory==="Accessories"? itemPrice : 0), Electronics:prev.Electronics-(props.itemCategory==="Electornics"? itemPrice : 0)};
     // });
     (props.itemCategory==="Clothing")&&(setTotal(prev=> {return {...prev,Clothing:prev.Clothing-itemPrice,All:prev.All-itemPrice}}));
-    (props.itemCategory==="Accesories")&&(setTotal(prev=> {return {...prev,Accessories:prev.Accessories-itemPrice,All:prev.All-itemPrice}}));
+    (props.itemCategory==="Accessories")&&(setTotal(prev=> {return {...prev,Accessories:prev.Accessories-itemPrice,All:prev.All-itemPrice}}));
     (props.itemCategory==="Electronics")&&(setTotal(prev=> {return {...prev,Electronics:prev.Electronics-itemPrice,All:prev.All-itemPrice}}));
     
     setCartItems((prev)=>{
@@ -64,9 +64,8 @@ export default function App() {
         return (<ShowDiscount key={index} campaign={discount.campaigns} type={discount.type} amount={discount.amount} secondAmount={discount.secondAmount} onDelete={deleteDiscount} id={index}/>)
       })}
       <h2>Calculate Total</h2>
-      {console.log(total)}
-      <p>Total Clothing : {total.Clothing}, totalAccesories : {total.Accessories}, totalElectronics : {total.Electronics}, totalPrice : {total.All}</p>
-      {/* <CalculateTotal cartTotal={total} discount={discountArray}/> */}
+      <p>Total Clothing : {total.Clothing}, totalAccessories : {total.Accessories}, totalElectronics : {total.Electronics}, totalPrice : {total.All}</p>
+      <CalculateTotal cartTotal={total} discount={discountArray}/>
     </div>
   );
 }
