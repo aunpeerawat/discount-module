@@ -30,7 +30,7 @@ return(<Container >
             <Form.Select name="itemCategory" onChange={handleChange} value={item.itemCategory || "defaultOption"}>
       <option value="defaultOption" disabled>Select the Category of Item</option>
       <option value="Clothing">Clothing</option>
-      <option value="Accesories">Accesories</option>
+      <option value="Accessories">Accessories</option>
       <option value="Electronics">Electronics</option>
     </Form.Select></Form.Group></Row>
     <Row><Form.Group><Form.Label>Price of Item</Form.Label>
