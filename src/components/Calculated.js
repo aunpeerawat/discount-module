@@ -25,8 +25,13 @@ function Calculated(props){
             (category==="Accessories")&&(nTop=discountArray[indexDiscount].amount*Accessories/100);
             (category==="Electronics")&&(nTop=discountArray[indexDiscount].amount*Electronics/100);
             console.log(category,nTop);
+            remaining-=nTop
         }
-        else if (discountArray[indexDiscount].campaigns==="DisbyPoint"){}
+        else if (discountArray[indexDiscount].campaigns==="DisbyPoint"){
+            const limit = 0.2 * remaining;
+            nTop = discountArray[indexDiscount].amount <= limit ? discountArray[indexDiscount].amount : limit ;
+            console.log("dis by point",nTop);
+        }
     }
     
 }
