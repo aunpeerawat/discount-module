@@ -42,8 +42,9 @@ export default function App() {
       alert('This type of coupon has already existed !.');
     }
     else{
-      setDiscountArray(prev=>{return [...prev,props]});
+      setDiscountArray(prev=>{return [...prev,props].sort(sortType)});
     }
+
   }
   function deleteDiscount(id){
     setDiscountArray((prev)=>{
@@ -51,6 +52,10 @@ export default function App() {
         return (index!==id);});
     });
   }
+  function sortType(a,b){
+    const order = { coupon: 1, ontop: 2, seasonal: 3 };
+    return order[a.type] - order[b.type];
+}
   return (
     <div className="App">
       <h2>Item</h2>
@@ -66,7 +71,8 @@ export default function App() {
       <h2>Calculate Total</h2>
       <p>Total Clothing : {total.Clothing}, totalAccessories : {total.Accessories}, totalElectronics : {total.Electronics}, totalPrice : {total.All}</p>
       {/* <CalculateTotal cartTotal={total} discount={discountArray}/> */}
-      <Calculated cartTotal={total} discount={discountArray}/>
+      {/* <Calculated cartTotal={total} discount={discountArray}/> */}
+      {console.log(discountArray)}
     </div>
   );
 }
