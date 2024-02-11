@@ -23,7 +23,6 @@ function AddDiscount(props){
               } else if (value === "Special") {
                 typeValue = "seasonal";
               }
-            console.log(value,typeValue);
             setDiscount(prev=>{return {...prev,[name]:value,type:typeValue}});
         }
         else{
@@ -55,7 +54,7 @@ category</option>
 <option value="DisbyPoint">Discount by points</option>
 <option value="Special">Special campaigns</option>
     </Form.Select></Row>
-    <Row>{console.log(discount.campaigns)}
+    <Row>
         {
     (discount.campaigns === "Fixed") && (
             <Form>

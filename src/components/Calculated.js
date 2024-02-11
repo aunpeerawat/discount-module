@@ -2,6 +2,7 @@ import React,{useState} from "react";
 
 function Calculated(props){
     const {Clothing,Accessories,Electronics,All} = props.cartTotal;
+    const [discount,setDiscount] = useState({});
     let coup = 0;
     let nTop = 0;
     let season = 0;
@@ -24,15 +25,23 @@ function Calculated(props){
             (category==="Clothing")&&(nTop=discountArray[indexDiscount].amount*Clothing/100);
             (category==="Accessories")&&(nTop=discountArray[indexDiscount].amount*Accessories/100);
             (category==="Electronics")&&(nTop=discountArray[indexDiscount].amount*Electronics/100);
-            console.log(category,nTop);
-            remaining-=nTop
+            remaining-=nTop;
         }
         else if (discountArray[indexDiscount].campaigns==="DisbyPoint"){
             const limit = 0.2 * remaining;
             nTop = discountArray[indexDiscount].amount <= limit ? discountArray[indexDiscount].amount : limit ;
-            console.log("dis by point",nTop);
+            remaining -= nTop;
         }
     }
+    if (discountArray.some((dis)=>{return (dis.type==="seasonal");})){
+        const times = Math.floor(remaining / discountArray[indexDiscount].amount);
+        season = (discountArray[indexDiscount].secondAmount)*times;
+        remaining -= season;
+    }
+    totalDiscount = coup+nTop+season;
+    console.log(coup,nTop,season,totalDiscount);
+    setDiscount({coupon:coup,ontop:nTop,seasonal:season,total:totalDiscount});
+    console.log(discount);
     
 }
 
