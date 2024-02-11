@@ -11,6 +11,7 @@ export default function App() {
   const [cartItems,setCartItems] = useState([]);
   const [discountArray,setDiscountArray] = useState([]);
   const [total,setTotal] = useState({Clothing:0,Accessories:0,Electronics:0,All:0});
+  const [remain,setRemain] = useState(0);
   
   function addItem(props){
     const itemPrice = parseFloat(props.itemPrice);
@@ -56,6 +57,30 @@ export default function App() {
     const order = { coupon: 1, ontop: 2, seasonal: 3 };
     return order[a.type] - order[b.type];
 }
+function calculateRemaining(){
+  let remaining = total.All;
+  discountArray.forEach((discount) => {
+    if (discount.campaigns === "Fixed") {
+      remaining -= discount.amount;
+    } else if (discount.campaigns === "PercentDis") {
+      remaining -= (discount.amount * remaining) / 100;
+    } else if (discount.campaigns === "PercentbyItem") {
+      if (discount.secondAmount === "Clothing") {
+        remaining -= discount.amount * total.Clothing / 100;
+      } else if (discount.secondAmount === "Accessories") {
+        remaining -= discount.amount * total.Accessories / 100;
+      } else if (discount.secondAmount === "Electronics") {
+        remaining -= discount.amount * total.Electronics / 100;
+      }
+    } else if (discount.campaigns === "DisbyPoint") {
+      remaining -= discount.amount < 0.2 * remaining ? discount.amount : 0.2 * remaining;
+    } else if (discount.campaigns === "Special") {
+      remaining -= Math.floor(remaining / discount.amount) * discount.secondAmount;
+    }
+  });
+  return remaining;
+};
+
   return (
     <div className="App">
       <h2>Item</h2>
@@ -70,9 +95,7 @@ export default function App() {
       })}
       <h2>Calculate Total</h2>
       <p>Total Clothing : {total.Clothing}, totalAccessories : {total.Accessories}, totalElectronics : {total.Electronics}, totalPrice : {total.All}</p>
-      {/* <CalculateTotal cartTotal={total} discount={discountArray}/> */}
-      {/* <Calculated cartTotal={total} discount={discountArray}/> */}
-      {console.log(discountArray)}
+      <p>Price Remain : {calculateRemaining()}</p>
     </div>
   );
 }

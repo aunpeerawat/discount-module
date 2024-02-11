@@ -18,13 +18,13 @@ function AddCart(props){
     }
 return(<Container >
     <Form >
-    <Row>
+    
     <Form.Group>
         <Form.Label>Name of Item</Form.Label>
         <Form.Control name="itemName" placeholder="Type the name of item" onChange={handleChange} value={item.itemName}/>
     </Form.Group>
-    </Row>
-    <Row>
+    
+    
         <Form.Group>
             <Form.Label>Category of Item</Form.Label>
             <Form.Select name="itemCategory" onChange={handleChange} value={item.itemCategory || "defaultOption"}>
@@ -32,10 +32,10 @@ return(<Container >
       <option value="Clothing">Clothing</option>
       <option value="Accessories">Accessories</option>
       <option value="Electronics">Electronics</option>
-    </Form.Select></Form.Group></Row>
-    <Row><Form.Group><Form.Label>Price of Item</Form.Label>
-        <Form.Control name="itemPrice" placeholder="Input the price" onChange={handleChange} value={item.itemPrice}/></Form.Group></Row></Form>
-    <Row><Button onClick={handleClick}>Add to Cart</Button></Row>
+    </Form.Select></Form.Group>
+    <Form.Group><Form.Label>Price of Item</Form.Label>
+        <Form.Control name="itemPrice" placeholder="Input the price" onChange={handleChange} value={item.itemPrice}/></Form.Group></Form>
+    <Button onClick={handleClick}>Add to Cart</Button>
   </Container>);
 }
 

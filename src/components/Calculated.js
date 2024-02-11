@@ -9,7 +9,8 @@ function Calculated(props){
     let totalDiscount = 0;
     let remaining = All;
     const discountArray = props.discount;
-    if (discountArray.some((dis)=>{return (dis.type==="coupon");})){
+
+    function calculateTotal(){if (discountArray.some((dis)=>{return (dis.type==="coupon");})){
         const indexDiscount = discountArray.findIndex((dis)=>{
             return (dis.type==="coupon");
         });
@@ -38,11 +39,23 @@ function Calculated(props){
         season = (discountArray[indexDiscount].secondAmount)*times;
         remaining -= season;
     }
-    totalDiscount = coup+nTop+season;
-    console.log(coup,nTop,season,totalDiscount);
-    setDiscount({coupon:coup,ontop:nTop,seasonal:season,total:totalDiscount});
-    console.log(discount);
-    
+    totalDiscount = coup+nTop+season;}
 }
 
 export default Calculated;
+
+// {setRemain(total.All)}
+//       {discountArray.map((discount)=>{
+//         (discount.campaigns==="Fixed")&&(setRemain((prev)=>{return prev-discount.amount}));
+//         (discount.campaigns==="PercentDis")&&(setRemain((prev)=>{return prev-discount.amount*prev/100}));
+//         if (discount.campaigns==="PercentbyItem"){
+//           (discount.secondAmount==="Clothing")&&(setRemain((prev)=>{return prev-discount.amount*total.Clothing/100}));
+//           (discount.secondAmount==="Accessories")&&(setRemain((prev)=>{return prev-discount.amount*total.Accessories/100}));
+//           (discount.secondAmount==="Electronics")&&(setRemain((prev)=>{return prev-discount.amount*total.Electronics/100}));
+//         }
+//         if (discount.campaigns==="DisbyPoint"){
+//           setRemain((prev)=>{return ((discount.amount < 0.2*prev) ? (prev-discount.amount) : (prev-0.2*prev))});
+//         }
+//         (discount.campaigns==="Special")&&(setRemain((prev)=>{return prev-(Math.floor(prev/discount.amount)*discount.secondAmount)}));
+//         return <CalculateTotal campaign={discount.campaigns} type={discount.type} remain={remain}/>
+//       })}
