@@ -57,8 +57,22 @@ category</option>
     </Form.Select></Row>
     <Row>{console.log(discount.campaigns)}
         {
-    (discount.campaigns === "Fixed" ||discount.campaigns === "PercentbyItem") && (
+    (discount.campaigns === "Fixed") && (
             <Form>
+              <Form.Label>Discount Amount</Form.Label>
+              <Form.Control name="amount" placeholder="Discount Amount" onChange={handleChange} value={discount.amount}/>
+              <Button onClick={handleClick}>Add Discount</Button>
+            </Form>
+          )}
+        {(discount.campaigns === "PercentbyItem") && (
+            <Form>
+              <Form.Label>Category</Form.Label>
+            <Form.Select name="secondAmount" onChange={handleChange} value={discount.secondAmount || "defaultOption"}>
+      <option value="defaultOption" disabled>Select the Category of Item</option>
+      <option value="Clothing">Clothing</option>
+      <option value="Accessories">Accessories</option>
+      <option value="Electronics">Electronics</option>
+    </Form.Select>
               <Form.Label>Discount Amount</Form.Label>
               <Form.Control name="amount" placeholder="Discount Amount" onChange={handleChange} value={discount.amount}/>
               <Button onClick={handleClick}>Add Discount</Button>

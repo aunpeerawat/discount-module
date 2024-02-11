@@ -5,6 +5,7 @@ import "./styles.css";
 import AddDiscount from "./components/AddDiscount";
 import ShowDiscount from "./components/ShowDiscount";
 import CalculateTotal from "./components/CalculateTotal";
+import Calculated from "./components/Calculated";
 
 export default function App() {
   const [cartItems,setCartItems] = useState([]);
@@ -37,9 +38,8 @@ export default function App() {
   }
   function addDiscount(props){
     const discountType = props.type;
-    if (discountArray.some(discount=>{discount.type===discountType})){
+    if (discountArray.some((discount)=>{return (discount.type===discountType)})){
       alert('This type of coupon has already existed !.');
-      return;
     }
     else{
       setDiscountArray(prev=>{return [...prev,props]});
@@ -49,7 +49,7 @@ export default function App() {
     setDiscountArray((prev)=>{
       return prev.filter((item,index)=>{
         return (index!==id);});
-    })
+    });
   }
   return (
     <div className="App">
@@ -65,7 +65,8 @@ export default function App() {
       })}
       <h2>Calculate Total</h2>
       <p>Total Clothing : {total.Clothing}, totalAccessories : {total.Accessories}, totalElectronics : {total.Electronics}, totalPrice : {total.All}</p>
-      <CalculateTotal cartTotal={total} discount={discountArray}/>
+      {/* <CalculateTotal cartTotal={total} discount={discountArray}/> */}
+      <Calculated cartTotal={total} discount={discountArray}/>
     </div>
   );
 }
