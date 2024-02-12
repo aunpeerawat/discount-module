@@ -6,10 +6,9 @@ function ShowCart(props){
     function handleClose(){
         props.onDelete(props);
     }
-    return(<Container >
+    return(
+        <Toast onClose={handleClose} className="m-3"><Toast.Header><strong className="me-auto ">{props.itemName}</strong><small>{props.itemCategory}</small></Toast.Header><Toast.Body>{props.itemPrice}</Toast.Body></Toast>)
 
-        <Toast onClose={handleClose}><Toast.Header><strong className="me-auto">{props.itemName}</strong><small>{props.itemCategory}</small></Toast.Header><Toast.Body>{props.itemPrice}</Toast.Body></Toast>
-    </Container>);
 }
 
 export default ShowCart;

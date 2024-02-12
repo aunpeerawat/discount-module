@@ -20,26 +20,26 @@ function AddCart(props){
         setItem({itemName:"",itemCategory:"",itemPrice:""});
         event.preventDefault();
     }
-return(<Container >
+return(<Container>
     <Form >
     
-    <Form.Group>
-        <Form.Label>Name of Item</Form.Label>
+    <Form.Group className="mb-4">
+        <Form.Label className="mb-3">Name of Item</Form.Label>
         <Form.Control name="itemName" placeholder="Type the name of item" onChange={handleChange} value={item.itemName}/>
     </Form.Group>
     
     
-        <Form.Group>
-            <Form.Label>Category of Item</Form.Label>
-            <Form.Select name="itemCategory" onChange={handleChange} value={item.itemCategory || ""}>
+        <Form.Group className="mb-4">
+            <Form.Label className="mb-3">Category of Item</Form.Label>
+            <Form.Select name="itemCategory" onChange={handleChange} value={item.itemCategory || ""} className="mb-3">
       <option value="" disabled>Select the Category of Item</option>
       <option value="Clothing">Clothing</option>
       <option value="Accessories">Accessories</option>
       <option value="Electronics">Electronics</option>
     </Form.Select></Form.Group>
-    <Form.Group><Form.Label>Price of Item</Form.Label>
+    <Form.Group className="mb-4"><Form.Label className="mb-3">Price of Item</Form.Label>
         <Form.Control name="itemPrice" placeholder="Input the price" onChange={handleChange} value={item.itemPrice}/></Form.Group></Form>
-    <Button onClick={handleClick}>Add to Cart</Button>
+    <Button onClick={handleClick} variant="light" style={{backgroundColor:"#80BCBD"}}>Add to Cart</Button>
   </Container>);
 }
 

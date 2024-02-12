@@ -66,8 +66,8 @@ function AddDiscount(props){
     }
     
     return(<Container><Row>
-            <Form.Label>Campaigns</Form.Label>
-            <Form.Select name="campaigns" onChange={handleChange} value={discount.campaigns || ""}>
+            <Form.Label className="mb-3">Campaign</Form.Label>
+            <Form.Select className="mb-3" name="campaigns" onChange={handleChange} value={discount.campaigns || ""}>
       <option value="" disabled>Select the Campaign</option>
       <option value="Fixed">Fixed Amount</option>
       <option value="PercentDis">Percentage
@@ -81,51 +81,52 @@ category</option>
     <Row>
         {
     (discount.campaigns === "Fixed") && (
-            <Form>
-              <Form.Label>Discount Amount</Form.Label>
-              <Form.Control name="amount" placeholder="Discount Amount" onChange={handleChange} value={discount.amount}/>
-              <Button onClick={handleClick}>Add Discount</Button>
+            <Form className="mb-4">
+              <Form.Label className="mb-3">Discount Amount</Form.Label>
+              <Form.Control className="mb-3" name="amount" placeholder="Discount Amount" onChange={handleChange} value={discount.amount}/>
+              <Button style={{backgroundColor:"#80BCBD"}} variant="light" onClick={handleClick}>Add Discount</Button>
             </Form>
           )}
         {(discount.campaigns === "PercentbyItem") && (
-            <Form>
-              <Form.Label>Category</Form.Label>
-            <Form.Select name="secondAmount" onChange={handleChange} value={discount.secondAmount || ""}>
+            <Form className="mb-3">
+              <Form.Label className="mb-3">Category</Form.Label>
+            <Form.Select className="mb-4" name="secondAmount" onChange={handleChange} value={discount.secondAmount || ""}>
       <option value="" disabled>Select the Category of Item</option>
       <option value="Clothing">Clothing</option>
       <option value="Accessories">Accessories</option>
       <option value="Electronics">Electronics</option>
     </Form.Select>
-              <Form.Label>Discount Amount</Form.Label>
-              <Form.Control name="amount" placeholder="Discount Amount" onChange={handleChange} value={discount.amount}/>
-              <Button onClick={handleClick}>Add Discount</Button>
+              <Form.Label className="mb-3">Discount Amount</Form.Label>
+              <Form.Control className="mb-3" name="amount" placeholder="Discount Amount" onChange={handleChange} value={discount.amount}/>
+              <Button style={{backgroundColor:"#80BCBD"}} variant="light" className="mb-3" onClick={handleClick}>Add Discount</Button>
             </Form>
           )}
           {discount.campaigns === "PercentDis" && (
-            <Form>
-              <Form.Label>Percentage</Form.Label>
-              <Form.Control name="amount" placeholder="Discount Percentage" onChange={handleChange} value={discount.amount}/>
-              <Button onClick={handleClick}>Add Discount</Button>
+            <Form className="mb-4">
+              <Form.Label className="mb-3">Percentage</Form.Label>
+              <Form.Control className="mb-3" name="amount" placeholder="Discount Percentage" onChange={handleChange} value={discount.amount}/>
+              <Button style={{backgroundColor:"#80BCBD"}} variant="light" className="mb-3" onClick={handleClick}>Add Discount</Button>
             </Form>
           )}
           {discount.campaigns === "DisbyPoint" && (
-            <Form>
-              <Form.Label>Customer Points</Form.Label>
+            <Form className="mb-4">
+              <Form.Label className="mb-3">Customer Points</Form.Label>
               <Form.Control
                 name="amount"
                 placeholder="Discount from Customer Points"
                 onChange={handleChange}
                 value={discount.amount}
+                className="mb-3"
               />
-              <Button onClick={handleClick}>Add Discount</Button>
+              <Button style={{backgroundColor:"#80BCBD"}} variant="light" className="mb-3" onClick={handleClick}>Add Discount</Button>
             </Form>
           )}
           {discount.campaigns === "Special" && (
-            <Form>
-              <Form.Label>Spectial Discount</Form.Label>
-              <Form.Control name="amount" placeholder="Every X THB" onChange={handleChange} value={discount.amount}/>
-              <Form.Control name="secondAmount" placeholder="Discount Y THB" onChange={handleChange} value={discount.secondAmount}/>
-              <Button onClick={handleClick}>Add Discount</Button>
+            <Form className="mb-4">
+              <Form.Label className="mb-3">Spectial Discount</Form.Label>
+              <Form.Control className="mb-3" name="amount" placeholder="Every X THB" onChange={handleChange} value={discount.amount}/>
+              <Form.Control className="mb-3" name="secondAmount" placeholder="Discount Y THB" onChange={handleChange} value={discount.secondAmount}/>
+              <Button style={{backgroundColor:"#80BCBD"}} variant="light" className="mb-3" onClick={handleClick}>Add Discount</Button>
             </Form>
           )}</Row>
           

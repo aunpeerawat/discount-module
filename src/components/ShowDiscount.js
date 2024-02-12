@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import Container from "react-bootstrap/esm/Container";
 import Toast from 'react-bootstrap/Toast';
 
@@ -8,12 +8,12 @@ function ShowDiscount(props){
     }
     return(<Container >
 
-        <Toast onClose={handleClose}><Toast.Header><strong className="me-auto">{props.campaign}</strong><small>{props.type}</small></Toast.Header>
-        {(props.campaign==="Fixed")&&(<Toast.Body>Discount {props.amount} baht</Toast.Body>)}
-        {(props.campaign==="PercentDis")&&(<Toast.Body>Discount {props.amount} %</Toast.Body>)}
-        {(props.campaign==="PercentbyItem")&&(<Toast.Body>Discount {props.amount} % by Item</Toast.Body>)}
-        {(props.campaign==="DisbyPoint")&&(<Toast.Body>Discount from {props.amount} points</Toast.Body>)}
-        {(props.campaign==="Special")&&(<Toast.Body>Discount {props.amount} baht every {props.secondAmount}</Toast.Body>)}
+        <Toast onClose={handleClose} className="m-3">
+        {(props.campaign==="Fixed")&&(<div><Toast.Header><strong className="me-auto">Fixed</strong><small>Coupon</small></Toast.Header><Toast.Body>Discount {props.amount} baht</Toast.Body></div>)}
+        {(props.campaign==="PercentDis")&&(<div><Toast.Header><strong className="me-auto">Percentage Discount</strong><small>Coupon</small></Toast.Header><Toast.Body>Discount {props.amount} %</Toast.Body></div>)}
+        {(props.campaign==="PercentbyItem")&&(<div><Toast.Header><strong className="me-auto">Percentage Discount by Item Category</strong><small>On Top</small></Toast.Header><Toast.Body>Discount {props.amount} % by Item</Toast.Body></div>)}
+        {(props.campaign==="DisbyPoint")&&(<div><Toast.Header><strong className="me-auto">Discount by Points</strong><small>On Top</small></Toast.Header><Toast.Body>Discount from {props.amount} points</Toast.Body></div>)}
+        {(props.campaign==="Special")&&(<div><Toast.Header><strong className="me-auto">Special</strong><small>Seasonal</small></Toast.Header><Toast.Body>Discount {props.amount} baht every {props.secondAmount}</Toast.Body></div>)}
         </Toast>
     </Container>);
 }

@@ -6,6 +6,12 @@ import AddDiscount from "./components/AddDiscount";
 import ShowDiscount from "./components/ShowDiscount";
 import CalculateTotal from "./components/CalculateTotal";
 import Calculated from "./components/Calculated";
+import Heading from "./components/Heading";
+import Container from "react-bootstrap/esm/Container";
+import ShowTotal from "./components/ShowTotal";
+import Additional from "./components/Additional";
+import Footer from "./components/Footing";
+import Footing from "./components/Footing";
 
 export default function App() {
   const [cartItems,setCartItems] = useState([]);
@@ -139,20 +145,24 @@ useEffect(() => {
 }, [cartItems, discountArray]);
 
   return (
-    <div className="App">
-      <h2>Item</h2>
+    <div className="App ">
+      <Heading />
+      <h3 >Add to my cart</h3>
       <AddCart onClick={addItem}/>
+      <Container className="d-flex flex-wrap">
       {cartItems.map((item,index)=>{
         return (<ShowCart key={index} itemName={item.itemName} itemCategory={item.itemCategory} itemPrice={item.itemPrice} onDelete={deleteItem} id={index}/>)
-      })}
-      <h2>Discount</h2>
+      })}</Container>
+      <h3 >Discount</h3>
       <AddDiscount addDiscount={addDiscount}/>
+      <Container className="d-flex flex-wrap">
       {discountArray.map((discount,index)=>{
         return (<ShowDiscount key={index} campaign={discount.campaigns} type={discount.type} amount={discount.amount} secondAmount={discount.secondAmount} onDelete={deleteDiscount} id={index}/>)
-      })}
-      <h2>Calculate Total</h2>
-      <p>Total Clothing : {total.Clothing}, totalAccessories : {total.Accessories}, totalElectronics : {total.Electronics}, totalPrice : {total.All}</p>
-      <p>Total Price : {remain}</p>
+      })}</Container>
+      <h3>Total</h3>
+      <ShowTotal remain={remain} total={total.All}/>
+      <Additional />
+      <Footing />
     </div>
   );
 }
