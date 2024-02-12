@@ -70,14 +70,20 @@ const calculateRemaining = () => {
       }
     } else if (discount.campaigns === "PercentDis") {
       const substract = (discount.amount * remaining) / 100;
-      if (remaining-substract >= 0) {remaining -= substract;}
+      if (total.All===0){alert("Couldn't add this discount");
+      deleteDiscount(index);
+      return;}
+      else if (remaining-substract >= 0) {remaining -= substract;}
       else {
         alert("Couldn't add this discount");
         deleteDiscount(index);
         return;
       }
     } else if (discount.campaigns === "PercentbyItem") {
-      if (discount.secondAmount === "Clothing") {
+      if (total.All===0){alert("Couldn't add this discount");
+      deleteDiscount(index);
+      return;}
+      else if (discount.secondAmount === "Clothing") {
         const substract = discount.amount * total.Clothing / 100;
         if (remaining-substract >= 0) {remaining -= substract;}
         else {
@@ -104,7 +110,10 @@ const calculateRemaining = () => {
       }
     } else if (discount.campaigns === "DisbyPoint") {
       const substract = discount.amount < 0.2 * remaining ? discount.amount : 0.2 * remaining;
-      if (remaining-substract >= 0) {remaining -= substract;}
+      if (total.All===0){alert("Couldn't add this discount");
+      deleteDiscount(index);
+      return;}
+      else if (remaining-substract >= 0) {remaining -= substract;}
       else {
         alert("Couldn't add this discount");
         deleteDiscount(index);
@@ -112,7 +121,10 @@ const calculateRemaining = () => {
       }
     } else if (discount.campaigns === "Special") {
       const substract = Math.floor(remaining / discount.amount) * discount.secondAmount;
-      if (remaining-substract >= 0) {remaining -= substract;}
+      if (total.All===0){alert("Couldn't add this discount");
+      deleteDiscount(index);
+      return;}
+      else if (remaining-substract >= 0) {remaining -= substract;}
       else {
         alert("Couldn't add this discount");
         deleteDiscount(index);
