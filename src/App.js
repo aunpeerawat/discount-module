@@ -1,4 +1,4 @@
-import React,{useState} from "react"
+import React,{useState,useEffect} from "react"
 import AddCart from "./components/AddCart";
 import ShowCart from "./components/ShowCart";
 import "./styles.css";
@@ -11,7 +11,7 @@ export default function App() {
   const [cartItems,setCartItems] = useState([]);
   const [discountArray,setDiscountArray] = useState([]);
   const [total,setTotal] = useState({Clothing:0,Accessories:0,Electronics:0,All:0});
-  const [remain,setRemain] = useState(0);
+  const [remain,setRemain] = useState(total.All);
   
   function addItem(props){
     const itemPrice = parseFloat(props.itemPrice);
@@ -57,29 +57,74 @@ export default function App() {
     const order = { coupon: 1, ontop: 2, seasonal: 3 };
     return order[a.type] - order[b.type];
 }
-function calculateRemaining(){
-  let remaining = total.All;
-  discountArray.forEach((discount) => {
+const calculateRemaining = () => {
+  let remaining = total.All; //
+  discountArray.forEach((discount,index) => {
     if (discount.campaigns === "Fixed") {
-      remaining -= discount.amount;
+      const substract = discount.amount;
+      if (remaining-substract >= 0) {remaining -= substract;}
+      else {
+        alert("Couldn't add this discount");
+        deleteDiscount(index);
+        return;
+      }
     } else if (discount.campaigns === "PercentDis") {
-      remaining -= (discount.amount * remaining) / 100;
+      const substract = (discount.amount * remaining) / 100;
+      if (remaining-substract >= 0) {remaining -= substract;}
+      else {
+        alert("Couldn't add this discount");
+        deleteDiscount(index);
+        return;
+      }
     } else if (discount.campaigns === "PercentbyItem") {
       if (discount.secondAmount === "Clothing") {
-        remaining -= discount.amount * total.Clothing / 100;
+        const substract = discount.amount * total.Clothing / 100;
+        if (remaining-substract >= 0) {remaining -= substract;}
+        else {
+          alert("Couldn't add this discount");
+          deleteDiscount(index);
+          return;
+        }
       } else if (discount.secondAmount === "Accessories") {
-        remaining -= discount.amount * total.Accessories / 100;
+        const substract = discount.amount * total.Accessories / 100;
+        if (remaining-substract >= 0) {remaining -= substract;}
+        else {
+          alert("Couldn't add this discount");
+          deleteDiscount(index);
+          return;
+        }
       } else if (discount.secondAmount === "Electronics") {
-        remaining -= discount.amount * total.Electronics / 100;
+        const substract = discount.amount * total.Electronics / 100;
+        if (remaining-substract >= 0) {remaining -= substract;}
+        else {
+          alert("Couldn't add this discount");
+          deleteDiscount(index);
+          return;
+        }
       }
     } else if (discount.campaigns === "DisbyPoint") {
-      remaining -= discount.amount < 0.2 * remaining ? discount.amount : 0.2 * remaining;
+      const substract = discount.amount < 0.2 * remaining ? discount.amount : 0.2 * remaining;
+      if (remaining-substract >= 0) {remaining -= substract;}
+      else {
+        alert("Couldn't add this discount");
+        deleteDiscount(index);
+        return;
+      }
     } else if (discount.campaigns === "Special") {
-      remaining -= Math.floor(remaining / discount.amount) * discount.secondAmount;
+      const substract = Math.floor(remaining / discount.amount) * discount.secondAmount;
+      if (remaining-substract >= 0) {remaining -= substract;}
+      else {
+        alert("Couldn't add this discount");
+        deleteDiscount(index);
+        return;
+      }
     }
-  });
-  return remaining;
+    });
+  setRemain(remaining);
 };
+useEffect(() => {
+  calculateRemaining();
+}, [cartItems, discountArray]);
 
   return (
     <div className="App">
@@ -95,7 +140,7 @@ function calculateRemaining(){
       })}
       <h2>Calculate Total</h2>
       <p>Total Clothing : {total.Clothing}, totalAccessories : {total.Accessories}, totalElectronics : {total.Electronics}, totalPrice : {total.All}</p>
-      <p>Price Remain : {calculateRemaining()}</p>
+      <p>Total Price : {remain}</p>
     </div>
   );
 }

@@ -11,40 +11,64 @@ function AddDiscount(props){
         amount: "",
         secondAmount: "",
       });
+    const [bool, setBool] = useState({isSpecial:false,haveSecondAmount:false});
     function handleChange(event){
         const {name,value} = event.target;
         let typeValue = "";
+        let updatedBool = {...bool};
         if (name==="campaigns"){
 
             if (value === "Fixed" || value === "PercentDis") {
                 typeValue = "coupon";
+                updatedBool.isSpecial = false;
+                updatedBool.haveSecondAmount=false;
               } else if (value === "PercentbyItem" || value === "DisbyPoint") {
                 typeValue = "ontop";
+                if (value === "PercentbyItem"){
+                  updatedBool.isSpecial=false;
+                  updatedBool.haveSecondAmount=true;
+                }
+                else{
+                  updatedBool.isSpecial=false;
+                  updatedBool.haveSecondAmount=false;}
               } else if (value === "Special") {
                 typeValue = "seasonal";
+                updatedBool.isSpecial=true;
+                updatedBool.haveSecondAmount=true;
               }
             setDiscount(prev=>{return {...prev,[name]:value,type:typeValue}});
+            setBool(updatedBool);
         }
+        else if (name === "amount" && value !== "" && !/^\d+(\.\d*)?$|^\.\d+$/.test(value)) {
+          return;
+        }
+        else if (name === "secondAmount" && bool.isSpecial && value !== "" && !/^\d+(\.\d*)?$|^\.\d+$/.test(value)) {
+        return;
+      }
+
         else{
           setDiscount(prev=>{return {...prev,[name]:value}});
         }
     }
 
     function handleClick(event){
+      if (!discount.campaigns || !discount.amount || (bool.haveSecondAmount && !discount.secondAmount)){
+        alert("Please complete your discount form!");
+        return;}
        props.addDiscount(discount);
        setDiscount({
         campaigns: "",
         type: "",
         amount: "",
         secondAmount: "",
-      });
-      event.preventDefault();
+        });
+        event.preventDefault();
     }
     
     return(<Container><Row>
             <Form.Label>Campaigns</Form.Label>
-            <Form.Select name="campaigns" onChange={handleChange} value={discount.campaigns || "defaultOption"}>
-      <option value="defaultOption" disabled>Select the Campaign</option>
+            <Form.Select name="campaigns" onChange={handleChange} value={discount.campaigns || ""}>
+      <option value="" disabled>Select the Campaign</option>
       <option value="Fixed">Fixed Amount</option>
       <option value="PercentDis">Percentage
 discount</option>
@@ -66,8 +90,8 @@ category</option>
         {(discount.campaigns === "PercentbyItem") && (
             <Form>
               <Form.Label>Category</Form.Label>
-            <Form.Select name="secondAmount" onChange={handleChange} value={discount.secondAmount || "defaultOption"}>
-      <option value="defaultOption" disabled>Select the Category of Item</option>
+            <Form.Select name="secondAmount" onChange={handleChange} value={discount.secondAmount || ""}>
+      <option value="" disabled>Select the Category of Item</option>
       <option value="Clothing">Clothing</option>
       <option value="Accessories">Accessories</option>
       <option value="Electronics">Electronics</option>
